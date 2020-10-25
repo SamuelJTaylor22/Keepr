@@ -17,7 +17,14 @@ namespace Keepr.Controllers
         [HttpGet]
         public ActionResult<Keep> Get()
         {
-            return new Keep();
+            try
+            {
+                return Ok(_service.GetAll());
+            }
+            catch (System.Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }
