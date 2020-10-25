@@ -10,10 +10,10 @@ namespace Keepr.Repositories
   {
     private readonly IDbConnection _db; 
     private readonly string populateCreator = @"SELECT 
-    blog.*,
-    profile.* 
-    FROM blogs blog 
-    JOIN profiles profile on blog.creatorEmail = profile.email ";
+    ckeep.*,
+    cprofile.* 
+    FROM keep ckeep 
+    JOIN profile cprofile on keep.creatorId = profile.id";
 
     public KeepsRepository(IDbConnection db, string populateCreator)
     {
