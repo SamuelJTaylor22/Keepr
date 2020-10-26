@@ -14,9 +14,10 @@ namespace Keepr.Repositories
     keep.*,
     profile.* 
     FROM keeps keep 
-    JOIN profiles profile on keep.creatorId = profile.id";
+    JOIN profiles profile on keep.creatorId = profile.id
+    ";
 
-    public KeepsRepository(IDbConnection db, string populateCreator)
+    public KeepsRepository(IDbConnection db)
     {
       _db = db;
     }
@@ -24,7 +25,8 @@ namespace Keepr.Repositories
     internal Keep GetById(int id)
     {
       string sql = populateCreator + "WHERE keep.id = @id";
-      return  _db.Query<Keep, Profile, Keep>(sql, (keep, profile) => {keep.Creator = profile; return keep;}, splitOn: "id").FirstOrDefault();
+    //   Keep found = _db.Query<Keep>("SELECT * FROM keeps WHERE id = @id").FirstOrDefault();
+      return _db.Query<Keep, Profile, Keep>(sql, (keep, profile) => {keep.Creator = profile; return keep;}, new {id}, splitOn: "id").FirstOrDefault();
     }
 
     internal IEnumerable<Keep> GetAll()
@@ -46,7 +48,8 @@ namespace Keepr.Repositories
 
     internal void Delete(int id)
     {
-      throw new NotImplementedException();
+      string sql = "DELETE FROM keeps WHERE id = @id";
+      _db.Execute(sql, new{id});
     }
   }
 }
