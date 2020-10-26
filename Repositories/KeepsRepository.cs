@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using Dapper;
 using Keepr.Models;
 
@@ -10,20 +11,42 @@ namespace Keepr.Repositories
   {
     private readonly IDbConnection _db; 
     private readonly string populateCreator = @"SELECT 
-    ckeep.*,
-    cprofile.* 
-    FROM keep ckeep 
-    JOIN profile cprofile on keep.creatorId = profile.id";
+    keep.*,
+    profile.* 
+    FROM keeps keep 
+    JOIN profiles profile on keep.creatorId = profile.id";
 
     public KeepsRepository(IDbConnection db, string populateCreator)
     {
       _db = db;
     }
 
+    internal Keep GetById(int id)
+    {
+      string sql = populateCreator + "WHERE keep.id = @id";
+      return  _db.Query<Keep, Profile, Keep>(sql, (keep, profile) => {keep.Creator = profile; return keep;}, splitOn: "id").FirstOrDefault();
+    }
+
     internal IEnumerable<Keep> GetAll()
     {
       string sql = populateCreator;
       return  _db.Query<Keep, Profile, Keep>(sql, (keep, profile) => {keep.Creator = profile; return keep;}, splitOn: "id");
+    }
+
+    internal int Create(Keep newKeep)
+    {
+      string sql = @"
+      INSERT INTO keeps
+      (creatorId, name, description, img)
+      VALUES
+      (@CreatorId, @Name, @Description, @Img);
+      SELECT LAST_INSERT_ID();";
+      return _db.ExecuteScalar<int>(sql, newKeep);
+    }
+
+    internal void Delete(int id)
+    {
+      throw new NotImplementedException();
     }
   }
 }
