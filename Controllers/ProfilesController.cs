@@ -15,11 +15,12 @@ namespace Keepr.Controllers
   {
     private readonly ProfilesService _ps;
     private readonly KeepsService _ks;
-    // private readonly VaultsService _vs;
-    public ProfilesController(ProfilesService ps, KeepsService ks)
+    private readonly VaultsService _vs;
+    public ProfilesController(ProfilesService ps, KeepsService ks, VaultsService vs)
     {
       _ps = ps;
       _ks = ks;
+      _vs = vs;
     }
 
 
@@ -44,6 +45,18 @@ namespace Keepr.Controllers
       try
       {
         return Ok(_ks.GetByCreatorId(id)); 
+      }
+      catch (System.Exception e)
+      {
+          return BadRequest(e.Message);
+      }
+    }
+    [HttpGet("{id}/vaults")]
+    public ActionResult<Vault> GetVaultByUser(string id)
+    {
+      try
+      {
+        return Ok(_vs.GetByCreatorId(id)); 
       }
       catch (System.Exception e)
       {
