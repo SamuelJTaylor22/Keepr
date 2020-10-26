@@ -73,5 +73,10 @@ namespace Keepr.Repositories
       _db.Execute(sql, editKeep);
       return editKeep;
     }
+
+    internal IEnumerable<Keep> GetKeepsByVault()
+    {
+      
+    }
   }
 }

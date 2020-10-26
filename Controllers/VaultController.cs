@@ -11,18 +11,20 @@ namespace Keepr.Controllers
     [Route("api/[controller]")]
     public class VaultsController : ControllerBase
     {
-        private readonly VaultsService _service;
+        private readonly VaultsService _vs;
+        private readonly KeepsService _ks;
 
-        public VaultsController(VaultsService ks)
+        public VaultsController(VaultsService vs, KeepsService ks)
         {
-            _service = ks;
+            _vs = vs;
+            _ks = ks;
         }
         [HttpGet]
         public ActionResult<Vault> Get()
         {
             try
             {
-                return Ok(_service.GetAll());
+                return Ok(_vs.GetAll());
             }
             catch (System.Exception e)
             {
@@ -35,7 +37,19 @@ namespace Keepr.Controllers
         {
             try
             {
-                return Ok(_service.GetById(id));
+                return Ok(_vs.GetById(id));
+            }
+            catch (System.Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpGet("{id}/keeps")]
+        public ActionResult<Vault> GetKeeps(int id)
+        {
+            try
+            {
+                return Ok(_ks.GetKeepsByVault(id));
             }
             catch (System.Exception e)
             {
@@ -52,7 +66,7 @@ namespace Keepr.Controllers
                 editVault.Creator = userInfo;
                 editVault.Id = id;
                 
-                return Ok(_service.Edit(editVault, userInfo.Id));
+                return Ok(_vs.Edit(editVault, userInfo.Id));
             }
             catch (System.Exception)
             {
@@ -69,7 +83,7 @@ namespace Keepr.Controllers
             try
             {
                 Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
-                return Ok(_service.Create(newVault, userInfo.Id));
+                return Ok(_vs.Create(newVault, userInfo.Id));
             }
             catch (System.Exception e)
             {
@@ -83,7 +97,7 @@ namespace Keepr.Controllers
             try
             {
                 Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
-                return Ok(_service.Delete(id, userInfo.Id));
+                return Ok(_vs.Delete(id, userInfo.Id));
             }
             catch (System.Exception e)
             {

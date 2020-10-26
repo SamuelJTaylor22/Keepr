@@ -11,8 +11,8 @@
   FOREIGN KEY (creatorId)
     REFERENCES profiles(id)
 ) */
-/* DROP TABLE vaultkeep */
-/* CREATE TABLE vaultkeep(
+/* DROP TABLE vaultkeep;
+CREATE TABLE vaultkeeps(
   id int AUTO_INCREMENT,
   creatorId VARCHAR(255),
   vaultId int,
@@ -29,8 +29,10 @@
     ON DELETE CASCADE
 ) */
 
-ALTER TABLE keeps
-/* ALTER views SET DEFAULT 0; */
-/* ALTER shares SET DEFAULT 0; */
-ALTER keeps SET DEFAULT 0;
+/* ALTER TABLE keeps
+ALTER views SET DEFAULT 0;
+ALTER shares SET DEFAULT 0;
+ALTER keeps SET DEFAULT 0; */
+
+SELECT * from vaultkeeps;
 
