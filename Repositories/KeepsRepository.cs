@@ -74,9 +74,14 @@ namespace Keepr.Repositories
       return editKeep;
     }
 
-    internal IEnumerable<Keep> GetKeepsByVault()
+    internal IEnumerable<KeepViewModel> GetKeepsByVault(int id)
     {
-      
+      string sql = @"
+      SELECT keep.*, vk.id AS VaultKeepId
+      FROM vaultkeeps vk
+      JOIN keeps keep ON keep.id = vk.keepId
+      WHERE vaultId = @id";
+      return _db.Query<KeepViewModel>(sql, new {id});
     }
   }
 }

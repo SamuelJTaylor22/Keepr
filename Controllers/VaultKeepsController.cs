@@ -33,5 +33,19 @@ namespace Keepr.Controllers
             return BadRequest(e.Message);
         }
     }
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<string>> Delete(int id){
+        try
+        {
+            Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+            return Ok(_service.Delete(id, userInfo.Id));
+
+        }
+        catch (System.Exception)
+        {
+            
+            throw;
+        }
+    }
   }
 }

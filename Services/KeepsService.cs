@@ -60,9 +60,9 @@ namespace Keepr.Services
       return _repo.Edit(editKeep);
     }
 
-    internal IEnumerable<Keep> GetKeepsByVault(int id)
+    internal IEnumerable<KeepViewModel> GetKeepsByVault(int id)
     {
-      return _repo.GetKeepsByVault();
+      return _repo.GetKeepsByVault(id);
     }
   }
 }

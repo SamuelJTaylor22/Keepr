@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Keepr.Models;
 using Keepr.Repositories;
 
@@ -14,15 +15,17 @@ namespace Keepr.Services
       _repo = repo;
     }
 
-    internal IEnumerable<Vault> GetAll()
+    internal IEnumerable<Vault> GetAll(string userId)
     {
-      return _repo.GetAll();
+      IEnumerable<Vault> vaults = _repo.GetAll();
+      return vaults.ToList().FindAll(v => v.CreatorId == userId || v.IsPrivate);
     }
 
-    internal Vault GetById(int id)
+    internal Vault GetById(int id, string userId)
     {
       Vault found = _repo.GetById(id);
       if (found == null) {throw new Exception("Invalid Id");}
+      if(found.IsPrivate == true && found.CreatorId != userId){throw new Exception("This Vault is Private");}
       return found;
     }
 
