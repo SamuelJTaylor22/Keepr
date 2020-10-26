@@ -7,11 +7,15 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     profile: {},
+    keeps: []
   },
   mutations: {
     setProfile(state, profile) {
       state.profile = profile;
     },
+    setKeeps(state, keeps){
+      state.keeps = keeps
+    }
   },
   actions: {
     async getProfile({ commit }) {
@@ -22,5 +26,13 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+    async getKeeps({commit}) {
+      try {
+        let res = await api.get("keeps")
+        commit("setKeeps", res.data)
+      } catch (error) {
+        console.error(error);
+      }
+    }
   },
 });

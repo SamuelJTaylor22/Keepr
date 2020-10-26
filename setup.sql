@@ -33,6 +33,6 @@ CREATE TABLE vaultkeeps(
 ALTER views SET DEFAULT 0;
 ALTER shares SET DEFAULT 0;
 ALTER keeps SET DEFAULT 0; */
-
-SELECT * from vaultkeeps;
+DELETE FROM vaults
+/* SELECT * from vaultkeeps; */
 
