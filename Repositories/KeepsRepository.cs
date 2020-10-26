@@ -46,10 +46,32 @@ namespace Keepr.Repositories
       return _db.ExecuteScalar<int>(sql, newKeep);
     }
 
+    internal IEnumerable<Keep> GetByCreatorId(string id)
+    {
+      string sql = populateCreator + "WHERE creatorId = @id";
+      return _db.Query<Keep, Profile, Keep>(sql, (keep, profile) => {keep.Creator = profile; return keep;}, new {id}, splitOn: "id");
+    }
+
     internal void Delete(int id)
     {
       string sql = "DELETE FROM keeps WHERE id = @id";
       _db.Execute(sql, new{id});
+    }
+
+    internal Keep Edit(Keep editKeep)
+    {
+      string sql = @"
+      UPDATE keeps
+      SET
+      name = @Name,
+      description = @Description,
+      img = @Img,
+      views = @Views,
+      shares = @Shares,
+      keeps = @Keeps
+      WHERE id = @id;";
+      _db.Execute(sql, editKeep);
+      return editKeep;
     }
   }
 }

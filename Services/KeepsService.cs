@@ -42,5 +42,22 @@ namespace Keepr.Services
       _repo.Delete(id);
       return "Its gone";
     }
+
+    internal IEnumerable<Keep> GetByCreatorId(string id)
+    {
+      return _repo.GetByCreatorId(id);
+    }
+
+    internal object Edit(Keep editKeep, string id)
+    {
+      Keep original = _repo.GetById(editKeep.Id);
+      if (original == null) { throw new Exception("Invalid Id"); }
+      if (original.CreatorId != id) { throw new Exception("You may only edit your own Keeps");}
+      editKeep.Name = editKeep.Name == null ? original.Name : editKeep.Name;
+      editKeep.Description = editKeep.Description == null ? original.Description : editKeep.Description;
+      editKeep.Img = editKeep.Img == null ? original.Img : editKeep.Img;
+
+      return _repo.Edit(editKeep);
+    }
   }
 }
