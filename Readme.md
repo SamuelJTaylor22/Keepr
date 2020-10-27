@@ -80,14 +80,14 @@ You have been provided the following Figma to provide you the general layout. Wh
 	- Keep Image X
 	- Add to vault functionality X
 - All users have a public profile page
-- The profile page adheres to mock:
-	- **Public** vaults
-	- **Private** vaults if it is their own page
-	- Keeps created by that user
-	- Total `keep`s count
-	- Total public `vault`s count
-	- The users name and avatar
-- Each `vault` has its own route where users can view all of the `keeps` in the vault
+- The profile page adheres to mock: 
+	- **Public** vaults X
+	- **Private** vaults if it is their own page X
+	- Keeps created by that user X
+	- Total `keep`s count X
+	- Total public `vault`s count X
+	- The users name and avatar X
+- Each `vault` has its own route where users can view all of the `keeps` in the vault X
 - On the `vault` page, if the `vault` is private and not the active users the request fails
 - From the `vault` page if the user is the creator they can remove `keep`s from the `vault`
 - Anytime a `keep` is `kept in a vault` the keep count is incremented

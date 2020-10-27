@@ -3,7 +3,7 @@
     <img class="card-img-top" :src="keepData.img" alt="Card image cap">
     <div class="row justify-content-between align-middle">
       <h5 class="card-title col">{{keepData.name}}</h5>
-      <img v-if="$route.name != 'MyProfile'" :src="keepData.creator.picture" class="col img-fluid pfp" alt="">
+      <img v-if="$route.name != 'MyProfile'" :src="keepData.creator.picture" class="col pfp" alt="">
     </div>
   </div>
 </template>
@@ -30,7 +30,7 @@ methods:{
 
 <style>
 .pfp{
-  height: 4em;
-  width: 4em;
+  max-height: 5em;
+  max-width: 5em;
 }
 </style>

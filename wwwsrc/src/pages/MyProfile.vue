@@ -6,7 +6,7 @@
           <img class="card-img-top" :src="profile.picture" alt="">
           <div class="card-body">
             <h4 class="card-title">{{profile.name}}</h4>
-            <p class="card-text">{{profile.email}}</p>
+            <p class="card-text">Keeps: {{myKeeps.length}} Vaults:{{publicVaults.length}}</p>
           </div>
         </div>
       </div>
@@ -18,7 +18,7 @@
       </div>
       <div class="col-12 col-md-4">
         <div class="row">
-          <div class="col-12"><h4>My Vaults</h4></div>
+          <div class="col-12"><h4>My Vaults<button type="button" class="btn btn-success" data-toggle="modal" data-target="#newVault">New</button></h4></div>
           <div class="col-12 card-columns"><vault v-for="vault in myVaults" :key="vault.id" :vaultData="vault"  v-on:selected="toggleModal"/></div>
         </div>
       </div>
@@ -49,6 +49,31 @@
             </div>
           </div>
         </div> 
+        <div class="modal fade" id="newVault" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New Vault</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body row">
+                <form @submit.prevent="addVault">
+                  <div class="form-group">
+                    <label for="">Name</label>
+                    <input v-model="newVault.name" type="text" class="form-control" placeholder="" aria-describedby="helpId">
+                    <label for="">Description</label>
+                    <input v-model="newVault.description" type="text" class="form-control" placeholder="" aria-describedby="helpId">
+                    <label for="">Private</label>
+                    <input v-model="newVault.isprivate" type="checkbox" class="form-control" placeholder="" aria-describedby="helpId">
+                    <button type="submit" class="btn btn-primary mt-1">Submit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div> 
   </main>
 </template>
 
@@ -67,8 +92,12 @@ data(){
       name:"",
       description:"",
       img:""
-    }
-    
+    },
+    newVault:{
+      name:"",
+      description:"",
+      isprivate: false
+    },
   }
 },
 computed: {
@@ -80,6 +109,9 @@ computed: {
   },
   myVaults(){
     return this.$store.state.profileVaults
+  },
+  publicVaults(){
+    return this.$store.state.profileVaults.filter(v => v.isPrivate == false)
   }
 },  
 methods: {
@@ -90,6 +122,10 @@ methods: {
     this.$store.dispatch("createKeep", this.newKeep)
     $('#newKeep').modal('toggle')
     $('#keepModal').modal('show')
+  },
+  addVault(){
+    $('#newVault').modal('toggle')
+    this.$store.dispatch("createVault", this.newVault)
   }
 },
 components:{

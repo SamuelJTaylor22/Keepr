@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import router from "../router/index.js";
 import { api } from "../services/AxiosService.js";
 
 Vue.use(Vuex);
@@ -7,10 +8,12 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     profile: {},
+    otherProfile:{},
     keeps: [],
     profileKeeps: [],
     profileVaults: [],
-    activeKeep: {creator:{}}
+    activeKeep: {creator:{}},
+    activeVault:{}
   },
   mutations: {
     setProfile(state, profile) {
@@ -27,6 +30,9 @@ export default new Vuex.Store({
     },
     setActiveKeep(state, keep){
       state.activeKeep = keep
+    },
+    setActiveVault(state, vault){
+      state.activeVault = vault
     },
     addKeep(state, keep){
       state.profileKeeps.push(keep)
@@ -87,6 +93,31 @@ export default new Vuex.Store({
         console.log(res.data);
       }
       catch(error){
+        console.error(error);
+      }
+    },
+    //ANCHOR Vault Zone
+    async createVault({commit, dispatch}, newVault){
+      try {
+        let res = await api.post("vaults", newVault)
+        router.push({name:"Vault", params:{id:res.data.id}})
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async getVault({commit}, id){
+      try {
+        let res = await api.get("vaults/"+id)
+        commit("setActiveVault", res.data)
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async getVaultKeeps({commit}, id){
+      try {
+        let res = await api.get("vaults/"+id+"/keeps")
+        commit("setKeeps", res.data)
+      } catch (error) {
         console.error(error);
       }
     }
