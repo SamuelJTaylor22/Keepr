@@ -17,7 +17,7 @@
               <div class="modal-body row">
                 <img class="img-fluid col-6" :src="activeKeep.img" alt="">
                 <div class="col-6">
-                  <h4>By: {{activeKeep.creator.name}}</h4>
+                  <h4>By: {{activeKeep.creator.name}}<img class="img-fluid" :src="activeKeep.creator.picture" alt=""></h4>
                   <p>Keeps: {{activeKeep.keeps}} Views: {{activeKeep.views}}</p>
                   <p>{{activeKeep.description}}</p>
                 </div>
