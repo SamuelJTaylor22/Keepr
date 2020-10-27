@@ -23,6 +23,7 @@ namespace Keepr.Services
     {
       Keep found = _repo.GetById(id);
       found.Views = found.Views + 1;
+      _repo.Edit(found);
       if (found == null) {throw new Exception("Invalid Id");}
       return found;
     }
