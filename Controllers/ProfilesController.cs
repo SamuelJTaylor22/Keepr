@@ -38,6 +38,18 @@ namespace Keepr.Controllers
         return BadRequest(e.Message);
       }
     }
+    [HttpGet("{id}")]
+    public ActionResult<Profile> GetById(string id)
+    {
+      try
+      {
+        return Ok(_ps.GetProfile(id));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
     
     [HttpGet("{id}/keeps")]
     public ActionResult<Keep> GetKeepByUser(string id)
@@ -52,11 +64,12 @@ namespace Keepr.Controllers
       }
     }
     [HttpGet("{id}/vaults")]
-    public ActionResult<Vault> GetVaultByUser(string id)
+    public async  Task<ActionResult<Vault>> GetVaultByUser(string id)
     {
       try
       {
-        return Ok(_vs.GetByCreatorId(id)); 
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+        return Ok(_vs.GetByCreatorId(id, userInfo?.Id)); 
       }
       catch (System.Exception e)
       {

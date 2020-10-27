@@ -45,9 +45,10 @@ namespace Keepr.Services
       return "Its gone";
     }
 
-    internal IEnumerable<Vault> GetByCreatorId(string id)
+    internal IEnumerable<Vault> GetByCreatorId(string id, string userId)
     {
-      return _repo.GetByCreatorId(id);
+      IEnumerable<Vault> vaults = _repo.GetByCreatorId(id);
+      return vaults.ToList().FindAll(v => v.CreatorId == userId || !v.IsPrivate);
     }
 
     internal object Edit(Vault editVault, string id)

@@ -19,6 +19,9 @@ export default new Vuex.Store({
     setProfile(state, profile) {
       state.profile = profile;
     },
+    setOtherProfile(state, profile) {
+      state.otherProfile = profile;
+    },
     setProfileKeeps(state, profileKeeps) {
       state.profileKeeps = profileKeeps;
     },
@@ -43,6 +46,14 @@ export default new Vuex.Store({
       try {
         let res = await api.get("profiles");
         commit("setProfile", res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async getOtherProfile({ commit }, id) {
+      try {
+        let res = await api.get("profiles/"+id);
+        commit("setOtherProfile", res.data);
       } catch (error) {
         console.error(error);
       }
