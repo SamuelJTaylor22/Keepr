@@ -79,7 +79,8 @@ namespace Keepr.Repositories
       string sql = @"
       SELECT keep.*, vk.id AS VaultKeepId
       FROM vaultkeeps vk
-      JOIN keeps keep ON keep.id = vk.keepId
+      INNER JOIN profiles profile ON vk.creatorId = profile.id
+      INNER JOIN keeps keep ON keep.id = vk.keepId
       WHERE vaultId = @id";
       return _db.Query<KeepViewModel>(sql, new {id});
     }

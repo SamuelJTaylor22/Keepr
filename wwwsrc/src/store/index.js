@@ -40,6 +40,15 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+    async getUserKeeps({commit}, id) {
+      try {
+        let res = await api.get(`profile/${id}/keeps`)
+        commit("setKeeps", res.data)
+        console.log(res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
     async setActiveKeep({commit}, id){
       try {
         let res = await api.get("keeps/"+id)

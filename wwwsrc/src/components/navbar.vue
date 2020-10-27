@@ -17,17 +17,25 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
-      <span class="navbar-text">
+      <ul class="navbar-nav">
         <!-- Consider changing this to a profile picture -->
+        <li class="nav-item" :class="{active: $route.name == 'MyProfile'}">
+          <router-link id="nav-myprofile link" :to="{name:'MyProfile'}" class="nav-link">
+            My Profile
+          </router-link>
+        </li>
+        <li v-if="!$auth.isAuthenticated">
         <button
           class="btn btn-success"
           @click="login"
-          v-if="!$auth.isAuthenticated"
         >
           Login
         </button>
-        <button class="btn btn-danger" @click="logout" v-else>logout</button>
-      </span>
+        </li>
+        <li v-else>
+        <button class="btn btn-danger" @click="logout" >logout</button>
+        </li>
+      </ul>
     </div>
   </nav>
 </template>
@@ -53,4 +61,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+ul{
+  list-style-type: none;
+}
+</style>
