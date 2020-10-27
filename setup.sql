@@ -33,6 +33,11 @@ CREATE TABLE vaultkeeps(
 ALTER views SET DEFAULT 0;
 ALTER shares SET DEFAULT 0;
 ALTER keeps SET DEFAULT 0; */
-DELETE FROM vaults
-/* SELECT * from vaultkeeps; */
+/* DELETE FROM vaults */
+SELECT * from vaultkeeps;
 
+      /* SELECT keep.*, vk.*
+      FROM vaultkeeps vk
+      INNER JOIN profiles profile ON vk.creatorId = profile.id
+      INNER JOIN keeps keep ON keep.id = vk.keepId
+      WHERE vaultId = 116 */

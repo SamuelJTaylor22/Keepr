@@ -77,12 +77,12 @@ namespace Keepr.Repositories
     internal IEnumerable<KeepViewModel> GetKeepsByVault(int id)
     {
       string sql = @"
-      SELECT keep.*, vk.id AS VaultKeepId
+      SELECT keep.*, vk.id AS vaultKeepId, profile.*
       FROM vaultkeeps vk
-      INNER JOIN profiles profile ON vk.creatorId = profile.id
-      INNER JOIN keeps keep ON keep.id = vk.keepId
+      JOIN keeps keep ON keep.id = vk.keepId
+      JOIN profiles profile ON keep.creatorId = profile.id
       WHERE vaultId = @id";
-      return _db.Query<KeepViewModel>(sql, new {id});
+      return _db.Query<KeepViewModel, Profile, KeepViewModel>(sql, (keep, profile) => {keep.Creator = profile; return keep;}, new {id}, splitOn:"id");
     }
   }
 }

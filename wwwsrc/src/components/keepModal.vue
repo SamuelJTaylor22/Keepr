@@ -1,10 +1,5 @@
 <template>
-  <div class="home container">
-    <div class="row">
-      <div class="card-columns col-12">
-        <keep v-for="keep in keeps" :key="keep.id" :keepData="keep"  v-on:selected="toggleModal"/>
-      </div>
-      <!-- <div class="col-12" v-if="activeKeep != {}">
+  <div class="col-12">
         <div class="modal fade" id="keepModal" tabindex="-1" role="dialog">
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -23,43 +18,26 @@
                 </div>
               </div>
               <div class="modal-footer">
-                
+                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
                 <button type="button" class="btn btn-primary">Keep It!</button>
               </div>
             </div>
           </div>
         </div> 
-      </div> -->
-      <keepModal/>
-    </div>
-  </div>
-  <!-- data-toggle="modal" data-target="#keepModal" -->
+      </div>
 </template>
 
 <script>
-import keep from '../components/keep'
-import keepModal from '../components/keepModal'
 export default {
-  name: "home",
-  mounted(){
-    this.$store.dispatch("getKeeps")
-  },
-  computed: {
-    keeps(){
-      return this.$store.state.keeps
-    },
-    activeKeep(){
+name: "keepmodal",
+computed:{
+      activeKeep(){
       return this.$store.state.activeKeep
     }
-  },
-  components: {
-    keep,
-    keepModal
-  },
-  methods: {
-    toggleModal(){
-      $('#keepModal').modal('show')
-    }
-  }
-};
+}
+}
 </script>
+
+<style>
+
+</style>
