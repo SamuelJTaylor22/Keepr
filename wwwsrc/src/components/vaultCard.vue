@@ -6,13 +6,19 @@
       <p class="card-text">{{vaultData.description}}</p>
     </div>
     </router-link>
+    <button type="button" @click="deleteVault" class="btn btn-danger">Delete</button>
   </div>
 </template>
 
 <script>
 export default {
 name:"vaultCard",
-props:["vaultData"]
+props:["vaultData"],
+methods:{
+  deleteVault(){
+    this.$store.dispatch('deleteVault', this.vaultData.id)
+  }
+}
 }
 </script>
 

@@ -7,6 +7,9 @@
       </div>
       <keepModal/>
     </div>
+    <div v-else>
+      <router-link :to="{name:'Home'}">You navigated to a vault that doesn't exist, or a private vault you don't own. Click here to go back home. </router-link>
+    </div>
   </div>
 </template>
 
@@ -24,7 +27,7 @@ computed :{
     return this.$store.state.activeVault
   },
   keeps(){
-    return this.$store.state.keeps
+    return this.$store.state.vaultKeeps
   }
 },
 methods:{

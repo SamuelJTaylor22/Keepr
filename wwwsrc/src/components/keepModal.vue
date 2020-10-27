@@ -18,7 +18,7 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                <button v-if="$auth.userInfo.id == activeKeep.creatorId && $route.name=='MyProfile'" type="button" class="btn btn-secondary" @click="deleteKeep" data-dismiss="modal">Delete</button>
                 <button type="button" class="btn btn-primary">Keep It!</button>
               </div>
             </div>
@@ -34,6 +34,11 @@ computed:{
       activeKeep(){
       return this.$store.state.activeKeep
     }
+},
+methods:{
+  deleteKeep(){
+    this.$store.dispatch('deleteKeep', this.activeKeep.id)
+  }
 }
 }
 </script>

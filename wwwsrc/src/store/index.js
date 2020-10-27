@@ -10,6 +10,7 @@ export default new Vuex.Store({
     profile: {},
     otherProfile:{},
     keeps: [],
+    vaultKeeps: [],
     profileKeeps: [],
     profileVaults: [],
     activeKeep: {creator:{}},
@@ -31,6 +32,9 @@ export default new Vuex.Store({
     setKeeps(state, keeps){
       state.keeps = keeps
     },
+    setVaultKeeps(state, keeps){
+      state.vaultKeeps = keeps
+    },
     setActiveKeep(state, keep){
       state.activeKeep = keep
     },
@@ -39,6 +43,12 @@ export default new Vuex.Store({
     },
     addKeep(state, keep){
       state.profileKeeps.push(keep)
+    },
+    deleteKeep(state, id){
+      state.profileKeeps = state.profileKeeps.filter(k => k.id != id)
+    },
+    deleteVault(state, id){
+      state.profileVaults = state.profileVaults.filter(k => k.id != id)
     }
   },
   actions: {
@@ -74,6 +84,14 @@ export default new Vuex.Store({
         let res = await api.get("keeps")
         commit("setKeeps", res.data)
         console.log(res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async deleteKeep({commit}, id){
+      try {
+        await api.delete("keeps/"+id)
+        commit("deleteKeep", id)
       } catch (error) {
         console.error(error);
       }
@@ -121,13 +139,22 @@ export default new Vuex.Store({
         let res = await api.get("vaults/"+id)
         commit("setActiveVault", res.data)
       } catch (error) {
+        router.push({name:"Home"})
+        console.error(error);
+      }
+    },
+    async deleteVault({commit}, id){
+      try {
+        await api.delete("vaults/"+id)
+        commit("deleteVault", id)
+      } catch (error) {
         console.error(error);
       }
     },
     async getVaultKeeps({commit}, id){
       try {
         let res = await api.get("vaults/"+id+"/keeps")
-        commit("setKeeps", res.data)
+        commit("setVaultKeeps", res.data)
       } catch (error) {
         console.error(error);
       }
