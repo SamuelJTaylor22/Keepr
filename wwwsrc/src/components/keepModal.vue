@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12">
+  <div class="">
         <div class="modal fade" id="keepModal" tabindex="-1" role="dialog">
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">

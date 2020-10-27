@@ -27,6 +27,9 @@ export default new Vuex.Store({
     },
     setActiveKeep(state, keep){
       state.activeKeep = keep
+    },
+    addKeep(state, keep){
+      state.profileKeeps.push(keep)
     }
   },
   actions: {
@@ -75,9 +78,12 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-    async createKeep({commit}, newKeep){
+    async createKeep({commit, dispatch, state}, newKeep){
       try {
         let res = await api.post("keeps", newKeep)
+        commit("addKeep", res.data)
+        dispatch("setActiveKeep", res.data.id)
+        dispatch("getProfileStuff", state.profile.id)
         console.log(res.data);
       }
       catch(error){

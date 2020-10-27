@@ -95,7 +95,7 @@ You have been provided the following Figma to provide you the general layout. Wh
 - Create and Delete Keeps
 - Create and Delete Vaults
 - Users can only Delete **things they created**
-- All deletes require confirmation
+- All deletes require confirmation 
 - Add `keeps` to `vault`s
 - Remove `keeps` from `vault`s
 - All API Tests pass
