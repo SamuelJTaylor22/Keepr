@@ -4,9 +4,9 @@
       <div class="card-columns col-12">
         <keep v-for="keep in keeps" :key="keep.id" :keepData="keep"  v-on:selected="toggleModal"/>
       </div>
-      <div class="col-12">
-        <div class="modal fade" id="keepModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
+      <div class="col-12" v-if="activeKeep != {}">
+        <div class="modal fade" id="keepModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">{{activeKeep.name}}</h5>
@@ -14,12 +14,17 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
-              ...
+              <div class="modal-body row">
+                <img class="img-fluid col-6" :src="activeKeep.img" alt="">
+                <div class="col-6">
+                  <h4>By: {{activeKeep.creator.name}}</h4>
+                  <p>Keeps: {{activeKeep.keeps}} Views: {{activeKeep.views}}</p>
+                  <p>{{activeKeep.description}}</p>
+                </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                <button type="button" class="btn btn-primary">Keep It!</button>
               </div>
             </div>
           </div>

@@ -8,7 +8,7 @@ export default new Vuex.Store({
   state: {
     profile: {},
     keeps: [],
-    activeKeep: {}
+    activeKeep: {creator:{}}
   },
   mutations: {
     setProfile(state, profile) {

@@ -12,9 +12,16 @@
 export default {
 name: "keep",
 props: ["keepData"],
+computed:{
+  activeKeep(){
+    return this.$store.state.activeKeep
+  }
+},
 methods:{
   setActive(){
-    this.$store.dispatch("setActiveKeep", this.keepData.id)
+    if(this.keepData.id != this.activeKeep.id){
+      this.$store.dispatch("setActiveKeep", this.keepData.id)
+    }
     this.$emit("selected")
   }
 }
