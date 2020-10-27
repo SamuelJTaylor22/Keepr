@@ -18,7 +18,7 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button v-if="$auth.userInfo.id == activeKeep.creatorId && $route.name=='MyProfile'" type="button" class="btn btn-secondary" @click="deleteKeep" data-dismiss="modal">Delete</button>
+                <button v-if="$auth.userInfo.id == activeKeep.creatorId && $route.name=='MyProfile'" type="button" class="btn btn-secondary" @click="deleteKeep">Delete</button>
                 <button type="button" class="btn btn-primary">Keep It!</button>
               </div>
             </div>
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import as from '../services/alertsService'
 export default {
 name: "keepmodal",
 computed:{
@@ -36,8 +37,11 @@ computed:{
     }
 },
 methods:{
-  deleteKeep(){
+  async deleteKeep(){
+    if(await as.confirmAction()){
     this.$store.dispatch('deleteKeep', this.activeKeep.id)
+    $('#keepModal').modal('toggle')
+    }
   }
 }
 }

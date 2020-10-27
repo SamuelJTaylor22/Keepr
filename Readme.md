@@ -67,7 +67,7 @@ You have been provided the following Figma to provide you the general layout. Wh
 # Requirements
 
 - Visitors can see all `keep`s (login not required) X
-- `Keep` cards are displayed in accordance to mock
+- `Keep` cards are displayed in accordance to mock X
 	- A `keep` card includes image, title, creator avatar X
 	- Clicking on the creator avatar navigates to the creators profile page *(stop propagate)* X
 - Cards follow a mansonry layout *(bootstrap card columns OR masonry)* X
@@ -88,17 +88,17 @@ You have been provided the following Figma to provide you the general layout. Wh
 	- Total public `vault`s count X
 	- The users name and avatar X
 - Each `vault` has its own route where users can view all of the `keeps` in the vault X
-- On the `vault` page, if the `vault` is private and not the active users the request fails
-- From the `vault` page if the user is the creator they can remove `keep`s from the `vault`
-- Anytime a `keep` is `kept in a vault` the keep count is incremented
+<!-- - On the `vault` page, if the `vault` is private and not the active users the request fails -->
+<!-- - From the `vault` page if the user is the creator they can remove `keep`s from the `vault` -->
+<!-- - Anytime a `keep` is `kept in a vault` the keep count is incremented -->
 - Users can Register, login and automatically authenticated on refresh X
-- Create and Delete Keeps
-- Create and Delete Vaults
-- Users can only Delete **things they created**
-- All deletes require confirmation 
-- Add `keeps` to `vault`s
-- Remove `keeps` from `vault`s
-- All API Tests pass
+- Create and Delete Keeps X
+- Create and Delete Vaults X
+- Users can only Delete **things they created** X
+<!-- - All deletes require confirmation  -->
+<!-- - Add `keeps` to `vault`s -->
+<!-- - Remove `keeps` from `vault`s -->
+- All API Tests pass X
 
 ### Finished?
 

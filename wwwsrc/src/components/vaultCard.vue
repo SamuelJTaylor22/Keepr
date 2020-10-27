@@ -11,12 +11,15 @@
 </template>
 
 <script>
+import as from '../services/alertsService'
 export default {
 name:"vaultCard",
 props:["vaultData"],
 methods:{
-  deleteVault(){
+  async deleteVault(){
+    if(await as.confirmAction()){
     this.$store.dispatch('deleteVault', this.vaultData.id)
+    }
   }
 }
 }
