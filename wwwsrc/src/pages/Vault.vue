@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="row">
+    <div class="row" v-if="vault != {}">
       <div class="col-12"><h1>{{vault.name}}</h1><h5>{{vault.description}}</h5></div>
       <div class="card-columns col-12">
         <keep v-for="keep in keeps" :key="keep.id" :keepData="keep"  v-on:selected="toggleModal"/>

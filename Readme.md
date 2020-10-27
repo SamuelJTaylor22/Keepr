@@ -69,7 +69,7 @@ You have been provided the following Figma to provide you the general layout. Wh
 - Visitors can see all `keep`s (login not required) X
 - `Keep` cards are displayed in accordance to mock
 	- A `keep` card includes image, title, creator avatar X
-	- Clicking on the creator avatar navigates to the creators profile page *(stop propagate)*
+	- Clicking on the creator avatar navigates to the creators profile page *(stop propagate)* X
 - Cards follow a mansonry layout *(bootstrap card columns OR masonry)* X
 - Clicking on a `keep` card opens the `keep` in a modal which adheres to mock X
 	- Keep Count X
