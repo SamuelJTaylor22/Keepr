@@ -9,6 +9,7 @@ export default new Vuex.Store({
     profile: {},
     keeps: [],
     profileKeeps: [],
+    profileVaults: [],
     activeKeep: {creator:{}}
   },
   mutations: {
@@ -17,6 +18,9 @@ export default new Vuex.Store({
     },
     setProfileKeeps(state, profileKeeps) {
       state.profileKeeps = profileKeeps;
+    },
+    setProfileVaults(state, profileVaults) {
+      state.profileVaults = profileVaults;
     },
     setKeeps(state, keeps){
       state.keeps = keeps
@@ -36,8 +40,10 @@ export default new Vuex.Store({
     },
     async getProfileStuff({ commit }, id) {
       try {
-        let res = await api.get("profiles/"+id +"/keeps");
-        commit("setProfileKeeps", res.data);
+        let reskeeps = await api.get("profiles/"+id +"/keeps");
+        commit("setProfileKeeps", reskeeps.data);
+        let resvaults = await api.get("profiles/"+id +"/vaults");
+        commit("setProfileVaults", resvaults.data);
       } catch (error) {
         console.error(error);
       }

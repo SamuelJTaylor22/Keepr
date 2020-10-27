@@ -91,7 +91,7 @@ You have been provided the following Figma to provide you the general layout. Wh
 - On the `vault` page, if the `vault` is private and not the active users the request fails
 - From the `vault` page if the user is the creator they can remove `keep`s from the `vault`
 - Anytime a `keep` is `kept in a vault` the keep count is incremented
-- Users can Register, login and automatically authenticated on refresh
+- Users can Register, login and automatically authenticated on refresh X
 - Create and Delete Keeps
 - Create and Delete Vaults
 - Users can only Delete **things they created**
