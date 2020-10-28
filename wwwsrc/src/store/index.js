@@ -91,7 +91,7 @@ export default new Vuex.Store({
       try {
         let res = await api.get("keeps")
         commit("setKeeps", res.data)
-        console.log(res.data);
+        // console.log(res.data);
       } catch (error) {
         console.error(error);
       }
@@ -108,7 +108,7 @@ export default new Vuex.Store({
       try {
         let res = await api.get(`profile/${id}/keeps`)
         commit("setKeeps", res.data)
-        console.log(res.data);
+        // console.log(res.data);
       } catch (error) {
         console.error(error);
       }
@@ -127,7 +127,7 @@ export default new Vuex.Store({
         commit("addKeep", res.data)
         dispatch("setActiveKeep", res.data.id)
         dispatch("getProfileStuff", state.profile.id)
-        console.log(res.data);
+        // console.log(res.data);
       }
       catch(error){
         console.error(error);
@@ -179,7 +179,7 @@ export default new Vuex.Store({
     async addVaultKeep({commit}, payload){
       try {
         let res = await api.post("vaultkeeps", payload)
-        console.log(res.data);
+        // console.log(res.data);
       } catch (error) {
         console.error(error);
       }

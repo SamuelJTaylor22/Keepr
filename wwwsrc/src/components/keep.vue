@@ -3,7 +3,7 @@
     <img class="card-img-top" :src="keepData.img" alt="Card image cap">
     <div class="row justify-content-between align-middle">
       <h5 class="card-title col">{{keepData.name}}</h5>
-      <router-link v-if="$route.name != 'MyProfile' && $route.name != 'Profile'" class="col justify-content-end" :to="{name:'Profile', params:{id:keepData.creator.id}}"><img  :src="keepData.creator.picture" class="pfp"  alt=""></router-link>
+      <img v-if="$route.name != 'MyProfile' && $route.name != 'Profile'" class="col pfp"  :src="keepData.creator.picture" alt="" @click="navigate">
     </div>
   </div>
 </template>
@@ -23,6 +23,10 @@ methods:{
       this.$store.dispatch("setActiveKeep", this.keepData.id)
     }
     this.$emit("selected")
+  },
+  navigate(){
+    event.stopPropagation()
+    this.$router.push({name:"Profile", params:{id:this.keepData.creatorId}})
   }
 }
 }
