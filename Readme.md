@@ -89,7 +89,7 @@ You have been provided the following Figma to provide you the general layout. Wh
 	- The users name and avatar X
 - Each `vault` has its own route where users can view all of the `keeps` in the vault X
 <!-- - On the `vault` page, if the `vault` is private and not the active users the request fails -->
-<!-- - From the `vault` page if the user is the creator they can remove `keep`s from the `vault` -->
+- From the `vault` page if the user is the creator they can remove `keep`s from the `vault` X
 - Anytime a `keep` is `kept in a vault` the keep count is incremented X
 - Users can Register, login and automatically authenticated on refresh X
 - Create and Delete Keeps X
@@ -97,7 +97,7 @@ You have been provided the following Figma to provide you the general layout. Wh
 - Users can only Delete **things they created** X
 - All deletes require confirmation X
 - Add `keeps` to `vault`s X
-<!-- - Remove `keeps` from `vault`s -->
+- Remove `keeps` from `vault`s X
 - All API Tests pass X
 
 ### Finished?

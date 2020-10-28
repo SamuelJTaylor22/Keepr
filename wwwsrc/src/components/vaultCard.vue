@@ -6,7 +6,7 @@
       <p class="card-text">{{vaultData.description}}</p>
     </div>
     </router-link>
-    <button type="button" @click="deleteVault" class="btn btn-danger">Delete</button>
+    <button v-if="vaultData.creatorId == $auth.userInfo.id" type="button" @click="deleteVault" class="btn btn-danger">Delete</button>
   </div>
 </template>
 
