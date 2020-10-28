@@ -108,10 +108,10 @@ computed: {
     return this.$store.state.profileKeeps
   },
   myVaults(){
-    return this.$store.state.profileVaults
+    return this.$store.state.myVaults
   },
   publicVaults(){
-    return this.$store.state.profileVaults.filter(v => v.isPrivate == false)
+    return this.$store.state.myVaults.filter(v => v.isPrivate == false)
   }
 },  
 methods: {

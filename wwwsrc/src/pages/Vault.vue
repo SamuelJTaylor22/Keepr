@@ -3,9 +3,9 @@
     <div class="row" v-if="vault != {}">
       <div class="col-12"><h1>{{vault.name}}</h1><h5>{{vault.description}}</h5></div>
       <div class="card-columns col-12">
-        <keep v-for="keep in keeps" :key="keep.id" :keepData="keep"  v-on:selected="toggleModal"/>
+        <keep v-for="keep in keeps" :key="keep.id" :keepData="keep"  v-on:selected="toggleModal" />
       </div>
-      <keepModal/>
+      <keepModal v-on:remove="removeKeep"/>
     </div>
     <div v-else>
       <router-link :to="{name:'Home'}">You navigated to a vault that doesn't exist, or a private vault you don't own. Click here to go back home. </router-link>
@@ -33,6 +33,11 @@ computed :{
 methods:{
   toggleModal(){
     $('#keepModal').modal('show')
+  },
+  removeKeep(id){
+    let keep = this.keeps.find(k => k.id = id)
+    this.$store.dispatch("removeKeepFromVault", keep)
+    $('#keepModal').modal('toggle')
   }
 },
 components:{

@@ -13,6 +13,7 @@ export default new Vuex.Store({
     vaultKeeps: [],
     profileKeeps: [],
     profileVaults: [],
+    myVaults: [],
     activeKeep: {creator:{}},
     activeVault:{}
   },
@@ -28,6 +29,9 @@ export default new Vuex.Store({
     },
     setProfileVaults(state, profileVaults) {
       state.profileVaults = profileVaults;
+    },
+    setMyVaults(state, profileVaults) {
+      state.myVaults = profileVaults;
     },
     setKeeps(state, keeps){
       state.keeps = keeps
@@ -49,13 +53,17 @@ export default new Vuex.Store({
     },
     deleteVault(state, id){
       state.profileVaults = state.profileVaults.filter(k => k.id != id)
+    },
+    removeKeepFromVault(state, id){
+      state.vaultKeeps = state.vaultKeeps.filter(k => k.id != id)
     }
   },
   actions: {
-    async getProfile({ commit }) {
+    async getProfile({ commit, dispatch }) {
       try {
         let res = await api.get("profiles");
         commit("setProfile", res.data);
+        dispatch("getMyVaults")
       } catch (error) {
         console.error(error);
       }
@@ -143,6 +151,14 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+    async getMyVaults({commit, state}){
+      try {
+        let res = await api.get("profiles/"+state.profile.id + "/vaults")
+        commit("setMyVaults", res.data)
+      } catch (error) {
+        console.error(error);
+      }
+    },
     async deleteVault({commit}, id){
       try {
         await api.delete("vaults/"+id)
@@ -151,12 +167,29 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+    //ANCHOR VaultKeeps Zone
     async getVaultKeeps({commit}, id){
       try {
         let res = await api.get("vaults/"+id+"/keeps")
         commit("setVaultKeeps", res.data)
       } catch (error) {
         console.error(error);
+      }
+    },
+    async addVaultKeep({commit}, payload){
+      try {
+        let res = await api.post("vaultkeeps", payload)
+        console.log(res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async removeKeepFromVault({commit}, payload){
+      try {
+        await api.delete("vaultkeeps/"+ payload.vaultKeepId)
+        commit("removeKeepFromVault", payload.id)
+      } catch (error) {
+        console.error(error)
       }
     }
   },
